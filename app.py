@@ -3,11 +3,15 @@ from flask_cors import CORS
 import pickle
 import pandas as pd
 import os
+from recommendation_engine import RecommendationEngine
 
 app = Flask(__name__)
 CORS(app)
 
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'models', 'price_model.pkl')
+
+# Initialize Recommendation Engine
+recommendation_engine = RecommendationEngine()
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -42,6 +46,30 @@ def predict():
 
     except Exception as e:
         print(f"Error: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/recommend/similar/<property_id>', methods=['GET'])
+def recommend_similar(property_id):
+    try:
+        similar_ids = recommendation_engine.get_similar_properties(property_id)
+        return jsonify({"similar_properties": similar_ids})
+    except Exception as e:
+        print(f"Error recommending similar properties: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/recommend/nearby', methods=['GET'])
+def recommend_nearby():
+    try:
+        lat = request.args.get('lat')
+        lng = request.args.get('lng')
+        
+        if not lat or not lng:
+            return jsonify({"error": "lat and lng parameters are required"}), 400
+
+        nearby_ids = recommendation_engine.get_nearby_properties(lat, lng)
+        return jsonify({"nearby_properties": nearby_ids})
+    except Exception as e:
+        print(f"Error recommending nearby properties: {e}")
         return jsonify({"error": str(e)}), 500
 
 @app.route('/health', methods=['GET'])
