@@ -1,4 +1,6 @@
-# AI Service Deployment
+# HomeRental-AI Service
+
+This repository contains the Python-based AI microservice for the HomeRental application.
 
 ## Deploying to Heroku
 
