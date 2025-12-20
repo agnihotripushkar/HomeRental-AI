@@ -24,6 +24,16 @@ Finds properties located geographically close to a given location.
 - **Logic**: Spatial constraints using Euclidean distance on `latitude` and `longitude`.
 - **Endpoint**: `GET /recommend/nearby?lat=<lat>&lng=<lng>`
 
+## Tech Stack
+
+The microservice is built using the following technologies:
+- **Programming Language**: Python
+- **Web Framework**: Flask
+- **Machine Learning**: Scikit-learn, Pandas, NumPy
+- **Database Integration**: PyMongo (MongoDB)
+- **Server**: Gunicorn (for production)
+- **Deployment**: Heroku
+
 ## Deploying to Heroku
 
 The AI service is a Python Flask app. It must be deployed as a separate Heroku app.
