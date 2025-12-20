@@ -1,6 +1,28 @@
 # HomeRental-AI Service
 
-This repository contains the Python-based AI microservice for the HomeRental application.
+This repository contains the Python-based AI microservice for the HomeRental application. It provides intelligent features to enhance the user experience by leveraging machine learning algorithms.
+
+## Key Features
+
+### 1. AI Price Suggestion
+Predicts the estimated rental price of a property based on its features.
+- **Model**: Trained Regressor (Random Forest/Linear Regression)
+- **Input Features**: `bedroom`, `bathroom`, `latitude`, `longitude`
+- **Output**: Estimated price in USD
+- **Endpoint**: `POST /predict`
+
+### 2. Recommendation Engine
+Provides personalized property recommendations using Nearest Neighbors algorithms.
+
+#### a. Similar Properties
+Suggests properties that are similar to a specific listing.
+- **Logic**: Content-based filtering using `bedroom`, `bathroom`, `price`, `latitude`, and `longitude`.
+- **Endpoint**: `GET /recommend/similar/<property_id>`
+
+#### b. Nearby Properties
+Finds properties located geographically close to a given location.
+- **Logic**: Spatial constraints using Euclidean distance on `latitude` and `longitude`.
+- **Endpoint**: `GET /recommend/nearby?lat=<lat>&lng=<lng>`
 
 ## Deploying to Heroku
 
